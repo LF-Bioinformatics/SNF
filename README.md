@@ -25,43 +25,20 @@ INSTALL_PATMAN=true
 
 
 Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fasta -A annotation.fasta
+
 -I:   Mandatory - A unique identifier for this analysis/run.
+
 -F:  Mandatory - Small RNAs in fastq format,
+
 -R:  Mandatory - Reference genome in fasta format.
+
 -A:  Mandatory - Annotation file containing genes in fasta format.
+
 -d:  Optional - HD adapters used? true if sRNAs were obtained using High Definition Adapters, otherwise false.
+
 -a:  Optional - Adapter sequence to be trimmed from small RNA fastq(s). If no adapter is supplied, Trimalore! auto detect adapter will be used.
+
 -r:  Optional - Maximum length ratio of spacer/total sequence used by GRF.
+
 -h:  Help - Help page.
-
-
-Output:
-Example_ID/
-├── blastDB
-├── fastq 
-├── processed_reads
-└── results
-    ├── align
-    │   └── Alignment of reads to IRs (*.patman.aln)
-    ├── blast
-    │   └── Blast output of IRs to annotation (blastn.results.txt)
-    ├── fastqc
-    │   ├── Data quality overview (*_fastqc.html)
-    │   └── Compressed quality overiview (*_fastqc.zip)
-    ├── IRs
-    │   ├── Imperfect IRs (imperfect.fasta)
-    │   ├── Perfect IRs (perfect.fasta)
-    │   ├── Perfect IRs with spacer (perfect.spacer.fasta)
-    │   └── ALL IRs (IRs.fa)
-    └── tables
-        ├── IRs in bed format (irs.bed)
-        ├── Main output table (IRsTable.tsv)
-        ├── Alignments in bed format (*.patman.aln.bed)
-        ├── IRs summary table for plotting (summaryTable.tsv)
-        ├── VennList - ALL_IRs.txt 
-        ├── VennList - HasModeSrnaLength21.txt
-        ├── VennList - HasSrna.txt
-        └── VennList - HasTarget.txt
-![image](https://user-images.githubusercontent.com/46004379/156680000-d3a15cd5-c376-479c-b654-280a2460221f.png)
-
-
+        
