@@ -4,22 +4,21 @@ SNF Version 1.3.1
 
 SNF is a program that can be used for the identification of small RNAs produced from inverted repeat loci. 
 
-System requirements:
-	Linux OS
-	Java
-	Optional: an internet connection for automated installation of dependencies – see below
+System requirements: Linux OS, Java and (optional) an internet connection for automated installation of dependencies – see below.
 
 Installation:
 Download and unzip the program folder and install dependencies below.
 
 Dependencies:
-The following software is required and should be available on Conda (https://docs.conda.io/en/latest/miniconda.html). 
+The following software is required:
+
+Conda (https://docs.conda.io/en/latest/miniconda.html). 
 
 Conda packages: grf (https://anaconda.org/bioconda/genericrepeatfinder), fastqc (https://anaconda.org/bioconda/fastqc), seqkit (https://anaconda.org/bioconda/seqkit), blast (https://anaconda.org/bioconda/blast), PaTMaN [1] (https://bioinf.eva.mpg.de/patman/).
 
 Please see installation instructions for how to install conda and the required conda packages (https://docs.conda.io/en/latest/miniconda.html#linux-installers) 
 
-For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman by editing and setting the following fields in the “properties.config” file to true (default = false):
+For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman by setting the following fields in the “properties.config” file to true (default = false):
 INSTALL_CONDA=true
 INSTALL_CONDA_TOOLS=true
 INSTALL_PATMAN=true
