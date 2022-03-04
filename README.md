@@ -42,3 +42,4 @@ Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fa
 
 -h:  Help - Help page.
         
+This software is an open-source tool and is released under the 3-clause BSD license.
