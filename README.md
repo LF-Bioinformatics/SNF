@@ -13,22 +13,16 @@ Installation:
 Download and unzip the program folder and install dependencies below.
 
 Dependencies:
-The following software is required and should be available on
-o	Conda (https://docs.conda.io/en/latest/miniconda.html) 
-o	Conda packages:
-o	grf (https://anaconda.org/bioconda/genericrepeatfinder)
-o	fastqc (https://anaconda.org/bioconda/fastqc)
-o	seqkit (https://anaconda.org/bioconda/seqkit)
-o	blast (https://anaconda.org/bioconda/blast)
-o	PaTMaN [1] (https://bioinf.eva.mpg.de/patman/)
+The following software is required and should be available on Conda (https://docs.conda.io/en/latest/miniconda.html). 
+
+Conda packages: grf (https://anaconda.org/bioconda/genericrepeatfinder), fastqc (https://anaconda.org/bioconda/fastqc), seqkit (https://anaconda.org/bioconda/seqkit), blast (https://anaconda.org/bioconda/blast), PaTMaN [1] (https://bioinf.eva.mpg.de/patman/).
 
 Please see installation instructions for how to install conda and the required conda packages (https://docs.conda.io/en/latest/miniconda.html#linux-installers) 
 
 For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman by editing and setting the following fields in the “properties.config” file to true (default = false):
-
-•	INSTALL_CONDA=true
-•	INSTALL_CONDA_TOOLS=true
-•	INSTALL_PATMAN=true
+INSTALL_CONDA=true
+INSTALL_CONDA_TOOLS=true
+INSTALL_PATMAN=true
 
 
 Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fasta -A annotation.fasta
