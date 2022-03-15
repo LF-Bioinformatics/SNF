@@ -18,10 +18,7 @@ Conda packages: grf (https://anaconda.org/bioconda/genericrepeatfinder), fastqc 
 
 Please see installation instructions for how to install conda and the required conda packages (https://docs.conda.io/en/latest/miniconda.html#linux-installers) 
 
-For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman by setting the following fields in the “properties.config” file to true (default = false):
-INSTALL_CONDA=true
-INSTALL_CONDA_TOOLS=true
-INSTALL_PATMAN=true
+For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman. Set the following fields in the “properties.config” file to true (default = false): INSTALL_CONDA=true, INSTALL_CONDA_TOOLS=true, INSTALL_PATMAN=true. Then run the tool. Using this method will automatically update the user's .bashrc with the conda install and update the tool's parameters.config with the patman location.
 
 
 Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fasta -A annotation.fasta
