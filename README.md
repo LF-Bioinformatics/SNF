@@ -1,6 +1,6 @@
 # SNF
 
-SNF Version 1.3.1
+SNF Version 1.4.1
 
 SNF is a program that can be used for the identification of small RNAs produced from inverted repeat loci. 
 
@@ -21,9 +21,11 @@ Please see installation instructions for how to install conda and the required c
 For convenience, it is possible to automate the download and installation of Conda, Conda packages and Patman. Set the following fields in the “properties.config” file to true (default = false): INSTALL_CONDA=true, INSTALL_CONDA_TOOLS=true, INSTALL_PATMAN=true. Then run the tool. Using this method will automatically update the user's .bashrc with the conda install and update the tool's parameters.config with the patman location.
 
 
-Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fasta -A annotation.fasta
+Usage: asnf [-d hd] [-a adapter] -O output_directory -F fastq(s) -R reference.fasta -A annotation.fasta -C configuration_file
 
--I:   Mandatory - A unique identifier for this analysis/run.
+-C:  Mandatory - Configuration file containing default parameters and user defined paths (see configuration note below).
+
+-O:  Mandatory - Output directory for this analysis/run.
 
 -F:  Mandatory - Small RNAs in fastq format,
 
@@ -35,8 +37,9 @@ Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fa
 
 -a:  Optional - Adapter sequence to be trimmed from small RNA fastq(s). If no adapter is supplied, Trimalore! auto detect adapter will be used.
 
--r:  Optional - Maximum length ratio of spacer/total sequence used by GRF.
-
 -h:  Help - Help page.
-        
-This software is an open-source tool and is released under the 3-clause BSD license.
+
+CONFIGURATION NOTE
+Please ensure that the INSTALL_DIR variable inside the configuration file is set to the software installation directory.
+
+This software is an open-source and is released under the 3-clause BSD license.
