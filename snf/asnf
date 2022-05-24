@@ -1,0 +1,44 @@
+#!/bin/bash
+
+version=1.4.1
+hidef=false
+adapter=-
+givehelp=
+
+
+while getopts O:F:R:A:d:a:C:h flag
+do
+    case "${flag}" in
+        O) output=${OPTARG};;
+        F) fastq=${OPTARG};;
+        R) reference=${OPTARG};;
+        A) annotation=${OPTARG};;
+        d) hidef=${OPTARG};;
+        a) adapter=${OPTARG};;
+        C) config=${OPTARG};;
+        h) givehelp="yes";;
+    esac
+done
+
+if [ -n "$givehelp" ]; then
+    echo "ASNF version $version."
+    echo "Usage: asnf [-d hd] [-a adapter] [-r ratio] -I runID -F fastq(s) -R reference.fasta -A annotation.fasta"
+    echo "-O    :   Mandatory   - Output directory for this analysis/run."
+    echo "-F    :   Mandatory   - Small RNAs in fastq format,"
+    echo "-R    :   Mandatory   - Reference genome in fasta format."
+    echo "-A    :   Mandatory   - Annotation file containing genes in fasta format."
+    echo "-d    :   Optional    - HD adapters used? true if sRNAs were obtained using High Definition Adapters, otherwise false."
+    echo "-a    :   Optional    - Adapter sequence to be trimmed from small RNA fastq(s). If no adapter is supplied, Trimalore! auto detect adapter will be used."
+    echo "-C    :   Mandatory   - Configuration file."
+    echo "-h    :   Help        - Help page."
+    exit 0
+elif [ -z "$output" ] || [ -z "$fastq" ] || [ -z "$reference" ] || [ -z "$config" ] || [ -z "$annotation" ]; then
+    echo 'Missing mandatory parameter. Use -h for help.' >&2
+    exit 1
+fi
+
+echo "Running ASNF version $version."
+echo "Parameters: $output $fastq $reference $annotation $hidef $adapter $config."
+java -jar A_SNF_1.jar $output $fastq $reference $annotation $hidef $adapter $config
+java -jar A_SNF_2.jar $output/results/IRs/IRs.fa $output/results/align/*trimmed.fq.fasta.nr.fa.patman.aln $output/results/blast/blastn.results.txt $output/results/tables/ $config
+
