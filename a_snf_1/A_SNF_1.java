@@ -5,18 +5,17 @@ import java.io.File;
 public class A_SNF_1 {
 
     /** Tool version.**/
-    public static final String VERSION = "1.3.1";
+    public static final String VERSION = "1.4.1";
     /** Tools installation. **/
     public Tools tools;
 
     public void start(String[] args){
-        this.installation(); 
+        this.installation(args[6]); 
         this.analysis(args);
     }
     
-    private void installation() {
-        this.tools = new Tools();
-        this.tools.setUpUserProperties();
+    private void installation(String configPath) {
+        this.tools = new Tools(configPath);
         this.tools.installCondaEnvironmentAsRequired();
         this.tools.installCondaTools();
         this.tools.installPatmanAsRequested();
@@ -24,10 +23,10 @@ public class A_SNF_1 {
     }
     
     private void analysis(String[] args){
-        String runID = args[0];
-        tools.setUpRunDir(runID);
-        File irs = tools.runGRF(new File(args[2]), Float.parseFloat(args[6]));
-        tools.runFastQCPre(runID, args[1]);
+        String outputDir = args[0];
+        tools.setUpRunDir(outputDir);
+        File irs = tools.runGRF(new File(args[2]));
+        tools.runFastQCPre(outputDir, args[1]);
         File uncompressedSingleFastq = tools.runFastqsToSingleUncompressedFastq(args[1]);
         File trimmedFastq = tools.runTrimAdapters(uncompressedSingleFastq, Boolean.parseBoolean(args[4]), null);
         File fasta = tools.runFastqToFasta(trimmedFastq);
@@ -36,21 +35,21 @@ public class A_SNF_1 {
         tools.runBuildBlastGeneDatabase(new File(args[3]));
         tools.runBlastn();
     }
-    
+
     public static void main(String[] args) {
         System.out.println("A SNF version " + A_SNF_1.VERSION);
         A_SNF_1 a = new A_SNF_1();
         if(a.validateParameters(args)) {
             a.start(args);
         } else {
-            System.out.println("Usage: java -jar A_SNF.jar <ID> <FASTQ | FASTQ,FASTQ...> <REFERENCE-FASTA> <hd=true/false> <adapter|-> <ratio>");
-            System.out.println("ID = a unique identifier for this analysis/run (mandatory).");
+            System.out.println("Usage: java -jar A_SNF.jar <OUTPUT-DIRECTORY> <FASTQ | FASTQ,FASTQ...> <REFERENCE-FASTA> <hd=true/false> <adapter|-> <CONFIG>");
+            System.out.println("OUTPUT-DIRECTORY = output directory for this analysis/run (mandatory).");
             System.out.println("FASTQ = small RNAs in fastq format, or a comer separated list of small RNA in fastq format (mandatory).");
             System.out.println("REFERENCE-FASTA = genome in fasta format (mandatory).");
             System.out.println("ANNOTATION-FASTA = genes in fasta format (mandatory).");
             System.out.println("boolean = false if sRNAs were not obtained using High Definition Adapters (mandatory).");
             System.out.println("Adapter = adapter sequence to be trimmed (first 9 bases Mandatory if provided) (mandatory). If no adapter is supplied or - provided, trim_galore auto detect adapter will be used.");
-            System.out.println("float = Maximum length ratio of spacer/total sequence (mandatory)\n");
+            System.out.println("CONFIG = path to the configuration file (mandatory).\n");
         }
     }
     
@@ -80,9 +79,9 @@ public class A_SNF_1 {
         if(args[5].length() < 9){
             System.err.println("Parameters info: adapter provided is less than 9 bases so using TrimGalore! auto detection method.");
         }
-        Float f = Float.parseFloat(args[6]);
-        if(f.isNaN()){
-            System.err.println("Error: Argument "+args[6]+" is NaN.");
+        File config = new File(args[6]);
+        if(!config.exists() || !config.canRead()){
+            System.err.println("Error: Argument "+args[6]+" provided as config file can not be read.");
             return false;
         }
         return true;
